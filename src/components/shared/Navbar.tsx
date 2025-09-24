@@ -36,8 +36,8 @@ const CATEGORIES = [
 const NAV_ITEMS: NavItem[] = [
   { label: "হোম", href: "/" },
   { label: "ক্যাটাগরি", children: CATEGORIES.map((c, i) => ({ label: c, href: `/category/${i + 1}` })) },
-  { label: "সবকিছু", href: "/all" },
-  { label: "সবচেয়ে অফার", href: "/offers" },
+  { label: "সকল পণ্য", href: "/all-products" },
+  { label: "সকল অফার", href: "/offers" },
   { label: "অর্ডার ট্র্যাক", href: "/track" },
   { label: "আমাদের সম্পর্কে", href: "/about" },
   { label: "যোগাযোগ", href: "/contact" },

@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 export interface SliderProps extends React.HTMLAttributes<HTMLDivElement> {
   value: number[];
+  min?: number;
   max?: number;
   step?: number;
   onValueChange?: (value: number[]) => void;
@@ -14,6 +15,7 @@ export interface SliderProps extends React.HTMLAttributes<HTMLDivElement> {
 // Minimal slider compatible with shadcn/ui API used in the project
 export function Slider({
   value,
+  min = 0,
   max = 100,
   step = 1,
   onValueChange,
@@ -26,7 +28,7 @@ export function Slider({
     <div className={cn("w-full", className)} {...props}>
       <input
         type="range"
-        min={0}
+        min={min}
         max={max}
         step={step}
         value={current}
@@ -37,7 +39,7 @@ export function Slider({
           "[&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary",
           "[&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-primary"
         )}
-        aria-valuemin={0}
+        aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={current}
       />
