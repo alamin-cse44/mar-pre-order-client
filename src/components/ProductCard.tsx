@@ -32,7 +32,7 @@ export interface Product {
         <div className="relative overflow-hidden rounded-2xl rounded-b-none">
           {/* Badges */}
           <div className="pointer-events-none absolute left-2 top-2 z-10 flex gap-2">
-            <Badge className="bg-[#00B67A] text-white">{p.discount}% OFF</Badge>
+            <Badge className="bg-red-600 text-white">{p.discount}% OFF</Badge>
             <Badge className="bg-orange-500 text-white">{p.daysLeft} days left</Badge>
           </div>
           <div className="relative aspect-[4/3] w-full">
@@ -48,7 +48,7 @@ export interface Product {
         </div>
   
         {/* Content (fixed heights to keep cards equal) */}
-        <div className="flex h-[275px] flex-col justify-between p-4">
+        <div className="flex h-[250px] flex-col justify-between p-4">
           {/* Title */}
           <h3 className="min-h-[3.2rem] text-sm font-semibold leading-5 text-foreground line-clamp-2">
             {p.title}
@@ -67,7 +67,7 @@ export interface Product {
               <span>
                 {p.joined}/{p.target} joined
               </span>
-              <span className="ml-auto">(Max: {p.max}) {progress}%</span>
+              <span className="ml-auto text-primary">(Max: {p.max}) {progress}%</span>
             </div>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
               <div className="h-full rounded-full bg-primary" style={{ width: `${progress}%` }} />
@@ -76,12 +76,12 @@ export interface Product {
   
           {/* Price */}
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-base font-extrabold text-foreground">মূল্য: {p.price.toLocaleString("bn-BD")} টাকা</span>
+            <span className="text-sm font-extrabold text-orange-400">মূল্য: {p.price.toLocaleString("bn-BD")} টাকা</span>
             <span className="text-xs text-muted-foreground line-through">{p.mrp.toLocaleString("bn-BD")} টাকা</span>
           </div>
   
           {/* CTA */}
-          <button className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90">
+          <button className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 cursor-pointer">
             <ShoppingCart className="size-4" /> অর্ডার করুন
           </button>
         </div>

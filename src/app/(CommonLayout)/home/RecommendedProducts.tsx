@@ -49,7 +49,7 @@ export default function RecommendedProducts() {
           </p>
 
           {/* See more — always below title & subtitle */}
-          <div className="mt-4 flex justify-center">
+          <div className="mt-4 flex justify-end mr-2">
             <a
               href="#see-more"
               className="inline-flex items-center gap-1 rounded-full border border-primary/50 bg-primary/10 px-3 py-1.5 text-sm font-semibold text-primary transition-colors hover:bg-primary/15"
