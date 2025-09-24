@@ -1,4 +1,5 @@
 import Footer from "@/components/shared/Footer";
+import Navbar from "@/components/shared/Navbar";
 import { Metadata } from "next";
 import React from "react";
 
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <h1>Navbar</h1>
+      <Navbar />
       <main className="min-h-screen bg-[#FFFFFF]">{children}</main>
       <Footer />
     </>
