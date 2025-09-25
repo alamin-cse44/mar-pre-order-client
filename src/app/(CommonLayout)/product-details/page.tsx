@@ -40,13 +40,14 @@ const DUMMY_PRODUCT = {
     "/products/demo.svg",
   ],
   tiers: [
-    { qty: 300, price: 1550 },
-    { qty: 500, price: 1520 },
-    { qty: 1000, price: 1500 },
+    { qty: 300, price: 1650 },
+    { qty: 500, price: 1250 },
+    { qty: 1000, price: 1150 },
   ],
   delivery: [
-    { label: "ঢাকা সিটি/ফ্রি", value: "৬০ টাকা" },
-    { label: "ঢাকার বাইরে/কুরিয়ার", value: "১৮০ টাকা" },
+    { label: "ঢাকা সিটির ভিতর", value: "৬০ টাকা" },
+    { label: "গাজীপুর / সাভার / নারায়ণগঞ্জ", value: "১০০ টাকা" },
+    { label: "ঢাকা সিটি বাহির", value: "১৩০ টাকা" },
   ],
   minRequired: 174,
   joined: 174,
@@ -69,7 +70,7 @@ export default function ProductDetails() {
           <div className="md:col-span-5">
             <div className="relative overflow-hidden rounded-2xl border">
               {/* discount badge */}
-              <div className="pointer-events-none absolute left-2 top-2 z-10 rounded-md bg-[#00B67A] px-2 py-1 text-[11px] font-bold text-white shadow">
+              <div className="pointer-events-none absolute left-2 top-2 z-10 rounded-md bg-red-600 px-2 py-1 text-[11px] font-bold text-white shadow">
                 {p.discount}% OFF
               </div>
 
@@ -125,50 +126,76 @@ export default function ProductDetails() {
                 </span>
               </div>
 
-              {/* Countdown + Tier pricing + Delivery */}
+              {/* Countdown + Tier pricing + Delivery (styled per design) */}
               <div className="space-y-3">
-                {/* Row 1: Campaign only */}
-                <div>
-                  <Box
-                    title="Campaign ends in"
-                    icon={<Clock3 className="size-4" />}
-                  >
-                    {/* Countdown already shows DAY / HOURS / MINUTES / SECONDS in one row */}
-                    <Countdown end={p.campaignEnd} />
-                  </Box>
+                {/* Row 1: Countdown */}
+                <div className="rounded-2xl border bg-[#F6FBF8] p-3">
+                  <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
+                    <Clock3 className="size-4 text-emerald-600" /> ক্যাম্পেইন
+                    শেষ হতে বাকি
+                  </div>
+                  <Countdown end={p.campaignEnd} />
                 </div>
 
-                {/* Row 2: Quantity-based Pricing + Delivery */}
+                {/* Row 2: Quantity-based pricing and delivery */}
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-                  <Box
-                    title="Quantity-based Pricing"
-                    icon={<BadgePercent className="size-4" />}
-                  >
+                  {/* Quantity pricing */}
+                  <div className="rounded-2xl border bg-[#F6FBF8] p-3">
+                    <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
+                      <BadgePercent className="size-4 text-emerald-600" />{" "}
+                      Quantity-Based Pricing
+                    </div>
                     <div className="grid grid-cols-3 gap-2 text-center text-xs">
-                      {p.tiers.map((t) => (
-                        <div key={t.qty} className="rounded-lg border p-2">
-                          <div className="font-semibold">{t.qty}+</div>
-                          <div className="font-bold text-emerald-600">
-                            {t.price.toLocaleString("bn-BD")}৳
+                      {p.tiers.map((t, idx) => {
+                        const base = p.price;
+                        const save = Math.max(0, base - t.price);
+                        const isHighlighted = idx === 0;
+                        return (
+                          <div
+                            key={t.qty}
+                            className={cn(
+                              "rounded-xl border p-3",
+                              isHighlighted &&
+                                "border-emerald-500 bg-white shadow-sm"
+                            )}
+                          >
+                            <div className="text-[11px] font-semibold text-emerald-700">
+                              {t.qty}+
+                            </div>
+                            <div className="text-sm font-extrabold text-emerald-600">
+                              ৳{t.price.toLocaleString("bn-BD")}
+                            </div>
+                            {save > 0 && (
+                              <div className="mt-1 text-[10px] text-emerald-700">
+                                Save ৳{save.toLocaleString("bn-BD")}
+                              </div>
+                            )}
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
-                  </Box>
+                  </div>
 
-                  <Box
-                    title="ডেলিভারি চার্জ"
-                    icon={<PackageCheck className="size-4" />}
-                  >
-                    <div className="grid grid-cols-2 gap-2 text-xs">
+                  {/* Delivery charge */}
+                  <div className="rounded-2xl border bg-[#F6FBF8] p-3">
+                    <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
+                      <PackageCheck className="size-4 text-emerald-600" />{" "}
+                      ডেলিভারি চার্জ
+                    </div>
+                    <div className="divide-y rounded-xl bg-white">
                       {p.delivery.map((d) => (
-                        <div key={d.label} className="rounded-lg border p-2">
-                          <div className="font-semibold">{d.label}</div>
-                          <div className="text-foreground/90">{d.value}</div>
+                        <div
+                          key={d.label}
+                          className="flex items-center justify-between px-3 py-2 text-sm"
+                        >
+                          <span className="text-foreground/90">{d.label}</span>
+                          <span className="font-semibold text-foreground">
+                            {d.value}
+                          </span>
                         </div>
                       ))}
                     </div>
-                  </Box>
+                  </div>
                 </div>
               </div>
 
@@ -411,13 +438,14 @@ function Countdown({ end }: { end: string }) {
     </div>
   );
 }
+
 function TimeBox({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-lg border p-2">
-      <div className="text-lg font-extrabold">
+    <div className="rounded-xl bg-emerald-600/90 p-2 text-white">
+      <div className="text-lg font-extrabold leading-none">
         {value.toString().padStart(2, "0")}
       </div>
-      <div className="opacity-70">{label}</div>
+      <div className="text-[10px] opacity-90">{label}</div>
     </div>
   );
 }
@@ -437,7 +465,7 @@ function Tabs({
           <button
             key={t.key}
             className={cn(
-              "rounded-full px-4 py-1.5 text-sm font-semibold",
+              "rounded-full px-4 py-1.5 text-sm font-semibold cursor-pointer",
               active === t.key
                 ? "bg-primary text-primary-foreground"
                 : "bg-muted text-foreground hover:bg-muted/80"
