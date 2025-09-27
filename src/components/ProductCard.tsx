@@ -95,9 +95,12 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
 
           {/* CTA */}
-          <button className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 cursor-pointer">
+          <Link
+            href="/checkout"
+            className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 cursor-pointer"
+          >
             <ShoppingCart className="size-4" /> অর্ডার করুন
-          </button>
+          </Link>
         </div>
       </article>
     </Link>

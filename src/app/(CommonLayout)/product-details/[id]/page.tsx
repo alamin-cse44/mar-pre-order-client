@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Shell from "@/components/ui/core/Shell";
 import { cn } from "@/lib/utils";
 import {
@@ -202,9 +203,12 @@ export default function ProductDetails() {
               {/* Qty + CTA */}
               <div className="flex flex-wrap items-center gap-3">
                 <QtyInput value={qty} setValue={setQty} />
-                <button className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:bg-primary/90">
+                <Link
+                  href="/checkout"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:bg-primary/90"
+                >
                   <ShoppingCart className="size-4" /> অর্ডার করুন
-                </button>
+                </Link>
               </div>
 
               {/* Progress cards */}
